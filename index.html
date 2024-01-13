@@ -10,7 +10,7 @@
 <body>
 
     <div id="container">
-        <div id="left">
+        <div id="configJson">
             <h2>Input JSON Configurations</h2>
             <textarea id="inputJson" placeholder="Enter JSON configurations">
 [
@@ -50,84 +50,87 @@
     }
 ]
             </textarea>
-            <button onclick="encode()">Encode</button>
+            
         </div>
-        <div id="right">
-            <h2>Encoded Share Link</h2>
-            <textarea id="outputLink" placeholder="Encoded Share Link"></textarea>
+
+        <div id="btn">
+            <button onclick="encode()">Encode</button>
             <button onclick="decode()">Decode</button>
         </div>
-    </div>
 
-    <!-- 新增的区域，用于说明页面的使用方法 -->
-    <div id="instructions">
-        <h2>How to Use</h2>
-        <a href="https://github.com/2dust/v2rayN/wiki/分享链接格式说明(ver-2)">分享链接格式说明(ver-2)</a>
-        <br>
-        <a href="https://github.com/2dust/v2rayN/wiki/订阅功能说明#分享链接格式说明">订阅功能说明</a>
-        <p>分享的链接（二维码）格式：vmess://Base64编码的JSON格式服务器数据</p>
+        <div id="shareLink">
+            <h2>Encoded Share Link</h2>
+            <textarea id="outputLink" placeholder="Encoded Share Link"></textarea>
+        </div>
 
-        <p>分享链接（URL）格式：[分享链接格式说明(ver 2)]的集合,以换行分割(可参考v2rayN批量导出分享链接),最后Base64编码</p>
-        
-        <p>示例：</p>
-        <pre>
-            vmess://base64(Configuration)
-            vmess://base64(Configuration)
-            vmess://base64(Configuration)
-        </pre>
-        <p>上面数据再base64输出</p>
+        <div id="instructions">
+            <h2>How to Use</h2>
+            <a href="https://github.com/2dust/v2rayN/wiki/分享链接格式说明(ver-2)">分享链接格式说明(ver-2)</a>
+            <br>
+            <a href="https://github.com/2dust/v2rayN/wiki/订阅功能说明#分享链接格式说明">订阅功能说明</a>
+            <p>分享的链接（二维码）格式：vmess://Base64编码的JSON格式服务器数据</p>
+    
+            <p>分享链接（URL）格式：[分享链接格式说明(ver 2)]的集合,以换行分割(可参考v2rayN批量导出分享链接),最后Base64编码</p>
             
-        <h2>JSON数据如下</h2>
-        <pre>
-            {
-                "v": "2",
-                "ps": "server_name",
-                "add": "111.111.111.111",
-                "port": "32000",
-                "id": "1386f85e-657b-4d6e-9d56-78badb75e1fd",
-                "aid": "100",
-                "scy": "zero",
-                "net": "tcp",
-                "type": "none",
-                "host": "www.bbb.com",
-                "path": "/",
-                "tls": "tls",
-                "sni": "www.ccc.com",
-                "alpn": "h2",
-                "fp": "chrome"
-            }
-        </pre>
-        <ul>
-            <li>v: 配置文件版本号,主要用来识别当前配置</li>
-            <li>ps: 备注或别名</li>
-            <li>add: 地址IP或域名</li>
-            <li>port: 端口号</li>
-            <li>id: UUID</li>
-            <li>aid: alterId</li>
-            <li>scy: 加密方式(security),没有时值默认auto</li>
-            <li>net: 传输协议(tcp\kcp\ws\h2\quic)</li>
-            <li>type: 伪装类型(none\http\srtp\utp\wechat-video) *tcp or kcp or QUIC</li>
-            <li>host: 伪装的域名</li>
-            <ol>
-                <li>http(tcp)->host中间逗号(,)隔开</li>
-                <li>ws->host</li>
-                <li>h2->host</li>
-                <li>QUIC->securty</li>
-            </ol>
-            <li>path: path</li>
-            <ol>
-                <li>path</li>
-                <li>h2->path</li>
-                <li>QUIC->key/Kcp->seed</li>
-                <li>grpc->serviceName</li>
-            </ol>
-            <li>tls: 传输层安全(tls)</li>
-            <li>sni: serverName</li>
-            <li>alpn: h2,http/1.1</li>
-            <li>fp: fingerprint</li>
-        </ul>
+            <p>示例：</p>
+            <pre>
+                vmess://base64(Configuration)
+                vmess://base64(Configuration)
+                vmess://base64(Configuration)
+            </pre>
+            <p>上面数据再base64输出</p>
+                
+            <h2>JSON数据如下</h2>
+            <pre>
+                {
+                    "v": "2",
+                    "ps": "server_name",
+                    "add": "111.111.111.111",
+                    "port": "32000",
+                    "id": "1386f85e-657b-4d6e-9d56-78badb75e1fd",
+                    "aid": "100",
+                    "scy": "zero",
+                    "net": "tcp",
+                    "type": "none",
+                    "host": "www.bbb.com",
+                    "path": "/",
+                    "tls": "tls",
+                    "sni": "www.ccc.com",
+                    "alpn": "h2",
+                    "fp": "chrome"
+                }
+            </pre>
+            <ul>
+                <li>v: 配置文件版本号,主要用来识别当前配置</li>
+                <li>ps: 备注或别名</li>
+                <li>add: 地址IP或域名</li>
+                <li>port: 端口号</li>
+                <li>id: UUID</li>
+                <li>aid: alterId</li>
+                <li>scy: 加密方式(security),没有时值默认auto</li>
+                <li>net: 传输协议(tcp\kcp\ws\h2\quic)</li>
+                <li>type: 伪装类型(none\http\srtp\utp\wechat-video) *tcp or kcp or QUIC</li>
+                <li>host: 伪装的域名</li>
+                <ol>
+                    <li>http(tcp)->host中间逗号(,)隔开</li>
+                    <li>ws->host</li>
+                    <li>h2->host</li>
+                    <li>QUIC->securty</li>
+                </ol>
+                <li>path: path</li>
+                <ol>
+                    <li>path</li>
+                    <li>h2->path</li>
+                    <li>QUIC->key/Kcp->seed</li>
+                    <li>grpc->serviceName</li>
+                </ol>
+                <li>tls: 传输层安全(tls)</li>
+                <li>sni: serverName</li>
+                <li>alpn: h2,http/1.1</li>
+                <li>fp: fingerprint</li>
+            </ul>
+        </div>
     </div>
-    <!-- End of new instructions section -->
 
 </body>
 </html>
